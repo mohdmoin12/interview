@@ -13,7 +13,8 @@ import {
   Code,
   RefreshCw,
   Heart,
-  Star
+  Star,
+  BookOpen
 } from 'lucide-react'
 
 const topics = [
