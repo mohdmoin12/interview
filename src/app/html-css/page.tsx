@@ -1,29 +1,61 @@
-'use client'
+"use client";
 
-import { useState } from 'react'
-import { motion, AnimatePresence } from 'framer-motion'
-import { 
-  ChevronDown, 
-  ChevronRight, 
-  Palette, 
-  Play, 
+import { useState } from "react";
+import { motion, AnimatePresence } from "framer-motion";
+import Link from "next/link";
+import {
+  ChevronDown,
+  ChevronRight,
+  Palette,
+  Play,
   CheckCircle,
   AlertCircle,
   Lightbulb,
   Code,
   Layout,
   Smartphone,
-  Monitor
-} from 'lucide-react'
+  Monitor,
+  Zap,
+  FileText,
+  HelpCircle,
+} from "lucide-react";
+
+const subjects = [
+  {
+    title: "JavaScript",
+    href: "/javascript",
+    icon: Code,
+  },
+  {
+    title: "React",
+    href: "/react",
+    icon: Zap,
+  },
+  {
+    title: "Next.js",
+    href: "/nextjs",
+    icon: FileText,
+  },
+  {
+    title: "HTML & CSS",
+    href: "/html-css",
+    icon: Palette,
+  },
+  {
+    title: "Interview Prep",
+    href: "/interview",
+    icon: HelpCircle,
+  },
+];
 
 const topics = [
   {
-    title: 'HTML Fundamentals',
+    title: "HTML Fundamentals",
     icon: Layout,
-    color: 'from-orange-400 to-red-500',
+    color: "from-orange-400 to-red-500",
     subtopics: [
       {
-        title: 'Semantic HTML',
+        title: "Semantic HTML",
         content: `Semantic HTML uses elements that clearly describe their meaning in a human- and machine-readable way.
 
 // Semantic elements
@@ -101,10 +133,10 @@ const topics = [
     <p>&copy; 2024 My Website. All rights reserved.</p>
   </footer>
 </body>
-</html>`
+</html>`,
       },
       {
-        title: 'Forms and Input Elements',
+        title: "Forms and Input Elements",
         content: `HTML forms are used to collect user input and send it to a server.
 
 // Form structure
@@ -200,17 +232,17 @@ const topics = [
     </div>
   </form>
 </body>
-</html>`
-      }
-    ]
+</html>`,
+      },
+    ],
   },
   {
-    title: 'CSS Layout',
+    title: "CSS Layout",
     icon: Layout,
-    color: 'from-blue-400 to-cyan-500',
+    color: "from-blue-400 to-cyan-500",
     subtopics: [
       {
-        title: 'Flexbox',
+        title: "Flexbox",
         content: `Flexbox is a one-dimensional layout method for arranging items in rows or columns.
 
 // Container properties
@@ -273,10 +305,10 @@ align-self: auto;           - Override container's align-items`,
     <p>Centered content</p>
   </div>
 </body>
-</html>`
+</html>`,
       },
       {
-        title: 'CSS Grid',
+        title: "CSS Grid",
         content: `CSS Grid is a two-dimensional layout system for creating complex layouts.
 
 // Container properties
@@ -356,17 +388,17 @@ align-self: center;         - Override container's align-items`,
     <footer class="footer">Footer</footer>
   </div>
 </body>
-</html>`
-      }
-    ]
+</html>`,
+      },
+    ],
   },
   {
-    title: 'Responsive Design',
+    title: "Responsive Design",
     icon: Smartphone,
-    color: 'from-green-400 to-emerald-500',
+    color: "from-green-400 to-emerald-500",
     subtopics: [
       {
-        title: 'Media Queries',
+        title: "Media Queries",
         content: `Media queries allow you to apply CSS styles based on device characteristics.
 
 // Basic syntax
@@ -459,10 +491,10 @@ print                      - Print media
     </div>
   </div>
 </body>
-</html>`
+</html>`,
       },
       {
-        title: 'Flexible Units',
+        title: "Flexible Units",
         content: `Use flexible units to create responsive layouts that adapt to different screen sizes.
 
 // Relative units
@@ -568,17 +600,17 @@ line-height: 1.5;         - Relative line height`,
     </section>
   </div>
 </body>
-</html>`
-      }
-    ]
+</html>`,
+      },
+    ],
   },
   {
-    title: 'CSS Animations',
+    title: "CSS Animations",
     icon: Play,
-    color: 'from-purple-400 to-pink-500',
+    color: "from-purple-400 to-pink-500",
     subtopics: [
       {
-        title: 'Transitions',
+        title: "Transitions",
         content: `CSS transitions provide a way to control animation speed when changing CSS properties.
 
 // Basic transition
@@ -662,10 +694,10 @@ transition: opacity 0.5s ease-in-out 0.2s;  - Opacity, 0.5s, ease-in-out, 0.2s d
     <p>This text fades in when the class is added</p>
   </div>
 </body>
-</html>`
+</html>`,
       },
       {
-        title: 'Keyframe Animations',
+        title: "Keyframe Animations",
         content: `Keyframe animations allow you to create complex animations with multiple steps.
 
 // Define keyframes
@@ -763,11 +795,11 @@ animation-play-state: running;    - Whether animation is running or paused`,
     <div class="box pulse"></div>
   </div>
 </body>
-</html>`
-      }
-    ]
-  }
-]
+</html>`,
+      },
+    ],
+  },
+];
 
 const interviewQuestions = [
   {
@@ -798,8 +830,8 @@ Padding:
 
 // Box model from outside to inside:
 // margin -> border -> padding -> content`,
-    difficulty: 'Easy',
-    category: 'Box Model'
+    difficulty: "Easy",
+    category: "Box Model",
   },
   {
     question: "Explain the CSS Box Model",
@@ -827,11 +859,12 @@ box-sizing: border-box;   // Width/height includes padding and border
 
 // Without border-box, total width would be:
 // 200px (content) + 40px (padding) + 10px (border) = 250px`,
-    difficulty: 'Easy',
-    category: 'Box Model'
+    difficulty: "Easy",
+    category: "Box Model",
   },
   {
-    question: "What is the difference between display: block, inline, and inline-block?",
+    question:
+      "What is the difference between display: block, inline, and inline-block?",
     answer: `display: block:
 - Takes full width of parent
 - Starts on new line
@@ -855,8 +888,8 @@ display: inline-block:
 .block { display: block; width: 200px; height: 100px; background: red; }
 .inline { display: inline; width: 200px; height: 100px; background: blue; }
 .inline-block { display: inline-block; width: 200px; height: 100px; background: green; }`,
-    difficulty: 'Easy',
-    category: 'Display Properties'
+    difficulty: "Easy",
+    category: "Display Properties",
   },
   {
     question: "How do you center an element horizontally and vertically?",
@@ -901,20 +934,49 @@ display: inline-block:
   vertical-align: middle;
   line-height: normal;
 }`,
-    difficulty: 'Medium',
-    category: 'Layout'
-  }
-]
+    difficulty: "Medium",
+    category: "Layout",
+  },
+];
 
 export default function HTMLCSSPage() {
-  const [expandedTopic, setExpandedTopic] = useState<number | null>(null)
-  const [expandedSubtopic, setExpandedSubtopic] = useState<number | null>(null)
-  const [showAnswer, setShowAnswer] = useState<number | null>(null)
+  const [expandedTopic, setExpandedTopic] = useState<number | null>(null);
+  const [expandedSubtopic, setExpandedSubtopic] = useState<number | null>(null);
+  const [showAnswer, setShowAnswer] = useState<number | null>(null);
 
   return (
-    <div className="min-h-screen py-8 px-4 lg:pl-96">
-      <div className="max-w-6xl mx-auto">
-        {/* Header */}
+    <div className="min-h-screen bg-white dark:bg-gray-900">
+      {/* Main Container */}
+      <div className="max-w-7xl mx-auto px-4 py-12 lg:py-20">
+        {/* Header Section with Subjects */}
+        <motion.header
+          initial={{ opacity: 0, y: -20 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.6 }}
+          className="mb-12 lg:mb-16"
+        >
+          {/* Subjects Navigation */}
+          <div className="flex flex-wrap justify-center gap-3 lg:gap-4 mb-8">
+            {subjects.map((subject, index) => (
+              <motion.div
+                key={subject.title}
+                initial={{ opacity: 0, scale: 0.9 }}
+                animate={{ opacity: 1, scale: 1 }}
+                transition={{ delay: index * 0.1, duration: 0.4 }}
+              >
+                <Link
+                  href={subject.href}
+                  className="flex items-center gap-2 px-4 py-2 lg:px-6 lg:py-3 bg-gray-100 dark:bg-gray-800 hover:bg-gray-200 dark:hover:bg-gray-700 rounded-lg lg:rounded-xl text-gray-700 dark:text-gray-300 hover:text-blue-600 dark:hover:text-blue-400 transition-all duration-300 font-medium text-sm lg:text-base"
+                >
+                  <subject.icon size={18} />
+                  <span>{subject.title}</span>
+                </Link>
+              </motion.div>
+            ))}
+          </div>
+        </motion.header>
+
+        {/* Page Header */}
         <motion.div
           initial={{ opacity: 0, y: 30 }}
           animate={{ opacity: 1, y: 0 }}
@@ -925,7 +987,8 @@ export default function HTMLCSSPage() {
             HTML & CSS Fundamentals
           </h1>
           <p className="text-xl text-gray-600 dark:text-gray-300 max-w-3xl mx-auto">
-            Master HTML semantics, CSS layout, responsive design, and modern styling techniques
+            Master HTML semantics, CSS layout, responsive design, and modern
+            styling techniques
           </p>
         </motion.div>
 
@@ -940,11 +1003,17 @@ export default function HTMLCSSPage() {
               className="bg-white dark:bg-gray-800 rounded-2xl shadow-lg overflow-hidden"
             >
               <button
-                onClick={() => setExpandedTopic(expandedTopic === topicIndex ? null : topicIndex)}
+                onClick={() =>
+                  setExpandedTopic(
+                    expandedTopic === topicIndex ? null : topicIndex
+                  )
+                }
                 className="w-full p-6 flex items-center justify-between hover:bg-gray-50 dark:hover:bg-gray-700 transition-colors duration-200"
               >
                 <div className="flex items-center space-x-4">
-                  <div className={`w-12 h-12 rounded-xl bg-gradient-to-r ${topic.color} flex items-center justify-center`}>
+                  <div
+                    className={`w-12 h-12 rounded-xl bg-gradient-to-r ${topic.color} flex items-center justify-center`}
+                  >
                     <topic.icon className="text-white" size={24} />
                   </div>
                   <h2 className="text-2xl font-bold text-gray-800 dark:text-white">
@@ -962,25 +1031,40 @@ export default function HTMLCSSPage() {
                 {expandedTopic === topicIndex && (
                   <motion.div
                     initial={{ height: 0, opacity: 0 }}
-                    animate={{ height: 'auto', opacity: 1 }}
+                    animate={{ height: "auto", opacity: 1 }}
                     exit={{ height: 0, opacity: 0 }}
                     transition={{ duration: 0.3 }}
                     className="border-t border-gray-200 dark:border-gray-700"
                   >
                     <div className="p-6 space-y-4">
                       {topic.subtopics.map((subtopic, subtopicIndex) => (
-                        <div key={subtopic.title} className="border border-gray-200 dark:border-gray-700 rounded-xl p-6">
+                        <div
+                          key={subtopic.title}
+                          className="border border-gray-200 dark:border-gray-700 rounded-xl p-6"
+                        >
                           <button
-                            onClick={() => setExpandedSubtopic(expandedSubtopic === subtopicIndex ? null : subtopicIndex)}
+                            onClick={() =>
+                              setExpandedSubtopic(
+                                expandedSubtopic === subtopicIndex
+                                  ? null
+                                  : subtopicIndex
+                              )
+                            }
                             className="w-full flex items-center justify-between mb-4"
                           >
                             <h3 className="text-xl font-semibold text-gray-800 dark:text-white">
                               {subtopic.title}
                             </h3>
                             {expandedSubtopic === subtopicIndex ? (
-                              <ChevronDown className="text-gray-500" size={20} />
+                              <ChevronDown
+                                className="text-gray-500"
+                                size={20}
+                              />
                             ) : (
-                              <ChevronRight className="text-gray-500" size={20} />
+                              <ChevronRight
+                                className="text-gray-500"
+                                size={20}
+                              />
                             )}
                           </button>
 
@@ -988,7 +1072,7 @@ export default function HTMLCSSPage() {
                             {expandedSubtopic === subtopicIndex && (
                               <motion.div
                                 initial={{ opacity: 0, height: 0 }}
-                                animate={{ opacity: 1, height: 'auto' }}
+                                animate={{ opacity: 1, height: "auto" }}
                                 exit={{ opacity: 0, height: 0 }}
                                 transition={{ duration: 0.3 }}
                                 className="space-y-4"
@@ -1002,7 +1086,7 @@ export default function HTMLCSSPage() {
                                     {subtopic.content}
                                   </pre>
                                 </div>
-                                
+
                                 <div className="bg-orange-50 dark:bg-orange-900/20 rounded-lg p-4">
                                   <h4 className="font-semibold text-orange-700 dark:text-orange-300 mb-2 flex items-center">
                                     <Code className="mr-2" size={16} />
@@ -1035,7 +1119,7 @@ export default function HTMLCSSPage() {
           <h2 className="text-3xl font-bold text-gray-800 dark:text-white mb-8 text-center">
             HTML/CSS Interview Questions
           </h2>
-          
+
           <div className="space-y-6">
             {interviewQuestions.map((qa, index) => (
               <motion.div
@@ -1051,13 +1135,15 @@ export default function HTMLCSSPage() {
                       <h3 className="text-lg font-semibold text-gray-800 dark:text-white">
                         {qa.question}
                       </h3>
-                      <span className={`px-3 py-1 rounded-full text-xs font-medium ${
-                        qa.difficulty === 'Easy' 
-                          ? 'bg-green-100 text-green-800 dark:bg-green-900 dark:text-green-200'
-                          : qa.difficulty === 'Medium'
-                          ? 'bg-yellow-100 text-yellow-800 dark:bg-yellow-900 dark:text-yellow-200'
-                          : 'bg-red-100 text-red-800 dark:bg-red-900 dark:text-red-200'
-                      }`}>
+                      <span
+                        className={`px-3 py-1 rounded-full text-xs font-medium ${
+                          qa.difficulty === "Easy"
+                            ? "bg-green-100 text-green-800 dark:bg-green-900 dark:text-green-200"
+                            : qa.difficulty === "Medium"
+                            ? "bg-yellow-100 text-yellow-800 dark:bg-yellow-900 dark:text-yellow-200"
+                            : "bg-red-100 text-red-800 dark:bg-red-900 dark:text-red-200"
+                        }`}
+                      >
                         {qa.difficulty}
                       </span>
                       <span className="px-3 py-1 rounded-full text-xs font-medium bg-blue-100 text-blue-800 dark:bg-blue-900 dark:text-blue-200">
@@ -1066,7 +1152,9 @@ export default function HTMLCSSPage() {
                     </div>
                   </div>
                   <button
-                    onClick={() => setShowAnswer(showAnswer === index ? null : index)}
+                    onClick={() =>
+                      setShowAnswer(showAnswer === index ? null : index)
+                    }
                     className="ml-4 px-4 py-2 bg-blue-500 text-white rounded-lg hover:bg-blue-600 transition-colors duration-200 flex items-center space-x-2"
                   >
                     {showAnswer === index ? (
@@ -1087,7 +1175,7 @@ export default function HTMLCSSPage() {
                   {showAnswer === index && (
                     <motion.div
                       initial={{ opacity: 0, height: 0 }}
-                      animate={{ opacity: 1, height: 'auto' }}
+                      animate={{ opacity: 1, height: "auto" }}
                       exit={{ opacity: 0, height: 0 }}
                       transition={{ duration: 0.3 }}
                       className="mt-4 bg-gray-50 dark:bg-gray-900 rounded-lg p-4"
@@ -1104,5 +1192,5 @@ export default function HTMLCSSPage() {
         </motion.div>
       </div>
     </div>
-  )
+  );
 }

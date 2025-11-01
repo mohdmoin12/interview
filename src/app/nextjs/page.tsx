@@ -1,12 +1,13 @@
-'use client'
+"use client";
 
-import { useState } from 'react'
-import { motion, AnimatePresence } from 'framer-motion'
-import { 
-  ChevronDown, 
-  ChevronRight, 
-  FileText, 
-  Play, 
+import { useState } from "react";
+import { motion, AnimatePresence } from "framer-motion";
+import Link from "next/link";
+import {
+  ChevronDown,
+  ChevronRight,
+  FileText,
+  Play,
   CheckCircle,
   AlertCircle,
   Lightbulb,
@@ -14,17 +15,47 @@ import {
   Zap,
   Globe,
   Database,
-  Settings
-} from 'lucide-react'
+  Settings,
+  Palette,
+  HelpCircle,
+} from "lucide-react";
+
+const subjects = [
+  {
+    title: "JavaScript",
+    href: "/javascript",
+    icon: Code,
+  },
+  {
+    title: "React",
+    href: "/react",
+    icon: Zap,
+  },
+  {
+    title: "Next.js",
+    href: "/nextjs",
+    icon: FileText,
+  },
+  {
+    title: "HTML & CSS",
+    href: "/html-css",
+    icon: Palette,
+  },
+  {
+    title: "Interview Prep",
+    href: "/interview",
+    icon: HelpCircle,
+  },
+];
 
 const topics = [
   {
-    title: 'File-based Routing',
+    title: "File-based Routing",
     icon: FileText,
-    color: 'from-gray-600 to-gray-800',
+    color: "from-gray-600 to-gray-800",
     subtopics: [
       {
-        title: 'Pages Directory',
+        title: "Pages Directory",
         content: `Next.js uses file-based routing where the file structure in the pages directory determines the routes.
 
 // pages/index.js -> /
@@ -75,10 +106,10 @@ export default function handler(req, res) {
     // Delete post
     res.status(200).json({ message: 'Post deleted' })
   }
-}`
+}`,
       },
       {
-        title: 'App Directory (App Router)',
+        title: "App Directory (App Router)",
         content: `The App Router is the new routing system in Next.js 13+ that uses the app directory.
 
 // app/page.js -> /
@@ -130,17 +161,17 @@ export default function BlogPost({ params }) {
       <h1>Blog Post: {params.slug}</h1>
     </div>
   )
-}`
-      }
-    ]
+}`,
+      },
+    ],
   },
   {
-    title: 'Server-Side Rendering',
+    title: "Server-Side Rendering",
     icon: Globe,
-    color: 'from-blue-400 to-cyan-500',
+    color: "from-blue-400 to-cyan-500",
     subtopics: [
       {
-        title: 'getServerSideProps',
+        title: "getServerSideProps",
         content: `getServerSideProps runs on the server on every request and returns data to the page component.
 
 // This function runs on the server
@@ -214,10 +245,10 @@ export const getServerSideProps = async (context) => {
   }
 }
 
-export default Post`
+export default Post`,
       },
       {
-        title: 'Static Site Generation',
+        title: "Static Site Generation",
         content: `getStaticProps generates static pages at build time, making them faster and more SEO-friendly.
 
 // This function runs at build time
@@ -294,17 +325,17 @@ export const getStaticProps = async ({ params }) => {
   }
 }
 
-export default Post`
-      }
-    ]
+export default Post`,
+      },
+    ],
   },
   {
-    title: 'API Routes',
+    title: "API Routes",
     icon: Database,
-    color: 'from-green-400 to-emerald-500',
+    color: "from-green-400 to-emerald-500",
     subtopics: [
       {
-        title: 'Creating API Routes',
+        title: "Creating API Routes",
         content: `API routes allow you to create API endpoints within your Next.js application.
 
 // pages/api/hello.js
@@ -394,10 +425,10 @@ export default async function handler(req, res) {
       res.setHeader('Allow', ['GET', 'PUT', 'DELETE'])
       res.status(405).end(\`Method \${method} Not Allowed\`)
   }
-}`
+}`,
       },
       {
-        title: 'Middleware',
+        title: "Middleware",
         content: `Middleware allows you to run code before a request is completed.
 
 // middleware.js (in project root)
@@ -465,17 +496,17 @@ export function middleware(request) {
 
 export const config = {
   matcher: '/api/:path*'
-}`
-      }
-    ]
+}`,
+      },
+    ],
   },
   {
-    title: 'Performance Optimization',
+    title: "Performance Optimization",
     icon: Zap,
-    color: 'from-purple-400 to-pink-500',
+    color: "from-purple-400 to-pink-500",
     subtopics: [
       {
-        title: 'Image Optimization',
+        title: "Image Optimization",
         content: `Next.js provides built-in image optimization with the next/image component.
 
 import Image from 'next/image'
@@ -541,10 +572,10 @@ module.exports = {
     domains: ['example.com', 'cdn.example.com'],
     formats: ['image/webp', 'image/avif'],
   },
-}`
+}`,
       },
       {
-        title: 'Code Splitting',
+        title: "Code Splitting",
         content: `Next.js automatically splits your code into smaller chunks for better performance.
 
 // Dynamic imports for code splitting
@@ -606,15 +637,16 @@ function Dashboard() {
       )}
     </div>
   )
-}`
-      }
-    ]
-  }
-]
+}`,
+      },
+    ],
+  },
+];
 
 const interviewQuestions = [
   {
-    question: "What is the difference between getServerSideProps and getStaticProps?",
+    question:
+      "What is the difference between getServerSideProps and getStaticProps?",
     answer: `getServerSideProps:
 - Runs on the server on every request
 - Data is fetched at request time
@@ -645,8 +677,8 @@ export async function getStaticProps() {
     revalidate: 60 // Revalidate every 60 seconds
   }
 }`,
-    difficulty: 'Medium',
-    category: 'Rendering Methods'
+    difficulty: "Medium",
+    category: "Rendering Methods",
   },
   {
     question: "How do you handle authentication in Next.js?",
@@ -700,11 +732,12 @@ function Dashboard() {
   
   return <p>Welcome {session.user.name}</p>
 }`,
-    difficulty: 'Medium',
-    category: 'Authentication'
+    difficulty: "Medium",
+    category: "Authentication",
   },
   {
-    question: "What is the App Router and how does it differ from the Pages Router?",
+    question:
+      "What is the App Router and how does it differ from the Pages Router?",
     answer: `App Router (Next.js 13+):
 - Uses the app directory instead of pages
 - Built on React Server Components
@@ -741,20 +774,49 @@ pages/
   dashboard/
     index.js        // Dashboard page
     settings.js     // Settings page`,
-    difficulty: 'Easy',
-    category: 'Routing'
-  }
-]
+    difficulty: "Easy",
+    category: "Routing",
+  },
+];
 
 export default function NextJSPage() {
-  const [expandedTopic, setExpandedTopic] = useState<number | null>(null)
-  const [expandedSubtopic, setExpandedSubtopic] = useState<number | null>(null)
-  const [showAnswer, setShowAnswer] = useState<number | null>(null)
+  const [expandedTopic, setExpandedTopic] = useState<number | null>(null);
+  const [expandedSubtopic, setExpandedSubtopic] = useState<number | null>(null);
+  const [showAnswer, setShowAnswer] = useState<number | null>(null);
 
   return (
-    <div className="min-h-screen py-8 px-4 lg:pl-96">
-      <div className="max-w-6xl mx-auto">
-        {/* Header */}
+    <div className="min-h-screen bg-white dark:bg-gray-900">
+      {/* Main Container */}
+      <div className="max-w-7xl mx-auto px-4 py-12 lg:py-20">
+        {/* Header Section with Subjects */}
+        <motion.header
+          initial={{ opacity: 0, y: -20 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.6 }}
+          className="mb-12 lg:mb-16"
+        >
+          {/* Subjects Navigation */}
+          <div className="flex flex-wrap justify-center gap-3 lg:gap-4 mb-8">
+            {subjects.map((subject, index) => (
+              <motion.div
+                key={subject.title}
+                initial={{ opacity: 0, scale: 0.9 }}
+                animate={{ opacity: 1, scale: 1 }}
+                transition={{ delay: index * 0.1, duration: 0.4 }}
+              >
+                <Link
+                  href={subject.href}
+                  className="flex items-center gap-2 px-4 py-2 lg:px-6 lg:py-3 bg-gray-100 dark:bg-gray-800 hover:bg-gray-200 dark:hover:bg-gray-700 rounded-lg lg:rounded-xl text-gray-700 dark:text-gray-300 hover:text-blue-600 dark:hover:text-blue-400 transition-all duration-300 font-medium text-sm lg:text-base"
+                >
+                  <subject.icon size={18} />
+                  <span>{subject.title}</span>
+                </Link>
+              </motion.div>
+            ))}
+          </div>
+        </motion.header>
+
+        {/* Page Header */}
         <motion.div
           initial={{ opacity: 0, y: 30 }}
           animate={{ opacity: 1, y: 0 }}
@@ -765,7 +827,8 @@ export default function NextJSPage() {
             Next.js Framework
           </h1>
           <p className="text-xl text-gray-600 dark:text-gray-300 max-w-3xl mx-auto">
-            Master Next.js with file-based routing, SSR, API routes, and performance optimization
+            Master Next.js with file-based routing, SSR, API routes, and
+            performance optimization
           </p>
         </motion.div>
 
@@ -780,11 +843,17 @@ export default function NextJSPage() {
               className="bg-white dark:bg-gray-800 rounded-2xl shadow-lg overflow-hidden"
             >
               <button
-                onClick={() => setExpandedTopic(expandedTopic === topicIndex ? null : topicIndex)}
+                onClick={() =>
+                  setExpandedTopic(
+                    expandedTopic === topicIndex ? null : topicIndex
+                  )
+                }
                 className="w-full p-6 flex items-center justify-between hover:bg-gray-50 dark:hover:bg-gray-700 transition-colors duration-200"
               >
                 <div className="flex items-center space-x-4">
-                  <div className={`w-12 h-12 rounded-xl bg-gradient-to-r ${topic.color} flex items-center justify-center`}>
+                  <div
+                    className={`w-12 h-12 rounded-xl bg-gradient-to-r ${topic.color} flex items-center justify-center`}
+                  >
                     <topic.icon className="text-white" size={24} />
                   </div>
                   <h2 className="text-2xl font-bold text-gray-800 dark:text-white">
@@ -802,25 +871,40 @@ export default function NextJSPage() {
                 {expandedTopic === topicIndex && (
                   <motion.div
                     initial={{ height: 0, opacity: 0 }}
-                    animate={{ height: 'auto', opacity: 1 }}
+                    animate={{ height: "auto", opacity: 1 }}
                     exit={{ height: 0, opacity: 0 }}
                     transition={{ duration: 0.3 }}
                     className="border-t border-gray-200 dark:border-gray-700"
                   >
                     <div className="p-6 space-y-4">
                       {topic.subtopics.map((subtopic, subtopicIndex) => (
-                        <div key={subtopic.title} className="border border-gray-200 dark:border-gray-700 rounded-xl p-6">
+                        <div
+                          key={subtopic.title}
+                          className="border border-gray-200 dark:border-gray-700 rounded-xl p-6"
+                        >
                           <button
-                            onClick={() => setExpandedSubtopic(expandedSubtopic === subtopicIndex ? null : subtopicIndex)}
+                            onClick={() =>
+                              setExpandedSubtopic(
+                                expandedSubtopic === subtopicIndex
+                                  ? null
+                                  : subtopicIndex
+                              )
+                            }
                             className="w-full flex items-center justify-between mb-4"
                           >
                             <h3 className="text-xl font-semibold text-gray-800 dark:text-white">
                               {subtopic.title}
                             </h3>
                             {expandedSubtopic === subtopicIndex ? (
-                              <ChevronDown className="text-gray-500" size={20} />
+                              <ChevronDown
+                                className="text-gray-500"
+                                size={20}
+                              />
                             ) : (
-                              <ChevronRight className="text-gray-500" size={20} />
+                              <ChevronRight
+                                className="text-gray-500"
+                                size={20}
+                              />
                             )}
                           </button>
 
@@ -828,7 +912,7 @@ export default function NextJSPage() {
                             {expandedSubtopic === subtopicIndex && (
                               <motion.div
                                 initial={{ opacity: 0, height: 0 }}
-                                animate={{ opacity: 1, height: 'auto' }}
+                                animate={{ opacity: 1, height: "auto" }}
                                 exit={{ opacity: 0, height: 0 }}
                                 transition={{ duration: 0.3 }}
                                 className="space-y-4"
@@ -842,7 +926,7 @@ export default function NextJSPage() {
                                     {subtopic.content}
                                   </pre>
                                 </div>
-                                
+
                                 <div className="bg-blue-50 dark:bg-blue-900/20 rounded-lg p-4">
                                   <h4 className="font-semibold text-blue-700 dark:text-blue-300 mb-2 flex items-center">
                                     <Code className="mr-2" size={16} />
@@ -875,7 +959,7 @@ export default function NextJSPage() {
           <h2 className="text-3xl font-bold text-gray-800 dark:text-white mb-8 text-center">
             Next.js Interview Questions
           </h2>
-          
+
           <div className="space-y-6">
             {interviewQuestions.map((qa, index) => (
               <motion.div
@@ -891,13 +975,15 @@ export default function NextJSPage() {
                       <h3 className="text-lg font-semibold text-gray-800 dark:text-white">
                         {qa.question}
                       </h3>
-                      <span className={`px-3 py-1 rounded-full text-xs font-medium ${
-                        qa.difficulty === 'Easy' 
-                          ? 'bg-green-100 text-green-800 dark:bg-green-900 dark:text-green-200'
-                          : qa.difficulty === 'Medium'
-                          ? 'bg-yellow-100 text-yellow-800 dark:bg-yellow-900 dark:text-yellow-200'
-                          : 'bg-red-100 text-red-800 dark:bg-red-900 dark:text-red-200'
-                      }`}>
+                      <span
+                        className={`px-3 py-1 rounded-full text-xs font-medium ${
+                          qa.difficulty === "Easy"
+                            ? "bg-green-100 text-green-800 dark:bg-green-900 dark:text-green-200"
+                            : qa.difficulty === "Medium"
+                            ? "bg-yellow-100 text-yellow-800 dark:bg-yellow-900 dark:text-yellow-200"
+                            : "bg-red-100 text-red-800 dark:bg-red-900 dark:text-red-200"
+                        }`}
+                      >
                         {qa.difficulty}
                       </span>
                       <span className="px-3 py-1 rounded-full text-xs font-medium bg-blue-100 text-blue-800 dark:bg-blue-900 dark:text-blue-200">
@@ -906,7 +992,9 @@ export default function NextJSPage() {
                     </div>
                   </div>
                   <button
-                    onClick={() => setShowAnswer(showAnswer === index ? null : index)}
+                    onClick={() =>
+                      setShowAnswer(showAnswer === index ? null : index)
+                    }
                     className="ml-4 px-4 py-2 bg-blue-500 text-white rounded-lg hover:bg-blue-600 transition-colors duration-200 flex items-center space-x-2"
                   >
                     {showAnswer === index ? (
@@ -927,7 +1015,7 @@ export default function NextJSPage() {
                   {showAnswer === index && (
                     <motion.div
                       initial={{ opacity: 0, height: 0 }}
-                      animate={{ opacity: 1, height: 'auto' }}
+                      animate={{ opacity: 1, height: "auto" }}
                       exit={{ opacity: 0, height: 0 }}
                       transition={{ duration: 0.3 }}
                       className="mt-4 bg-gray-50 dark:bg-gray-900 rounded-lg p-4"
@@ -944,5 +1032,5 @@ export default function NextJSPage() {
         </motion.div>
       </div>
     </div>
-  )
+  );
 }
